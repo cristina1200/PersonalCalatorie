@@ -1,0 +1,666 @@
+================================================================================
+ETAPA 6: SIMULATION EVALUATION REPORT
+Asistent Personal de Călătorie - PIU
+Data: ianuarie 2026
+================================================================================
+
+INTRODUCERE
+===========
+Această etapă prezintă evaluarea prin simulare (walkthrough) a 8 user tasks
+din cele 12 definite în ETAPA 3. Fiecare task este evaluat pe baza a 5 
+întrebări de evaluare tipice pentru usability testing.
+
+METODĂ: Cognitive Walkthrough / Heuristic Simulation
+EVALUATOR: Designer PIU
+PARTICIPANTS SIMULATED: 5 user personas (Nina, Sofia, Maria, Alex, Elena)
+
+================================================================================
+TASK 1: PLANIFICAREA UNEI NOI CĂLĂTORII
+================================================================================
+
+CONTEXT:
+Utilizator: Maria (28 ani, prima călătorie în străinătate)
+Device: Desktop, Chrome
+Acțiune: Completare form planificare + login
+
+EVALUARE CU 5 ÎNTREBĂRI:
+
+[Q1] Utilizatorul va încerca o anumită acțiune?
+─────────────────────────────────────────────
+Acțiune: Completa form "Planifică o nouă călătorie"
+⚠️ REZULTAT: PARȚIAL ✓✗
+
+ANALIZĂ:
+- Form este vizibil și prominent (header + intro text clar)
+- CTA button "Salvează Planul" este vizibil și colorat (gradient violet)
+- ✅ Maria VA ÎNCERCA să completeze, deoarece:
+  * E singura opțiune pe pagină (affordance clar)
+  * Placeholder-uri ajutează (ex: "Destinație (ex: Paris, Franța)")
+  * Structură vizuală simplă (1 coloană)
+- ❌ RISC: Dacă Maria nu citește placeholder-uri, s-ar putea confunda
+  * REMEDIU: Adaugă label-uri explicite deasupra input-urilor
+
+[Q2] Va observa utilizatorul controlul (buton/form field) relevant?
+────────────────────────────────────────────────────────
+Controluri relevante: Input "Destinație", "Data plecare", "Data întoarcere", 
+                      Dropdown "Scop", Button "Salvează"
+⚠️ REZULTAT: SUFICIENT ✓
+
+ANALIZĂ:
+- ✅ Toate input-urile au border clar (#e0e0e0)
+- ✅ Input-uri au background ușor (f8f9fa) → contrast
+- ✅ Focus state clar: border-color: #667eea, box-shadow albastră
+- ✅ Button "Salvează" e gradient colorat, contrast înalt
+- ✅ Labels implicit (placeholder) ajută
+- ⚠️ MINOR ISSUE: Text "Data plecării" în placeholder e mic (font 0.9em)
+  * REMEDIU: Adaugă label text deasupra input-ului
+
+[Q3] Va înțelege utilizatorul efectul acțiunilor sale (feedback)?
+───────────────────────────────────────────────────────────
+Acțiuni: Introducere date → Apasare buton → Afișare login
+⚠️ REZULTAT: BUN ✓✓
+
+ANALIZĂ:
+- ✅ Input validation în timp real:
+  * Dacă destinație < 3 caractere → eroare roșu "Introduceți o destinație validă"
+  * Dacă data întoarcere ≤ data plecare → eroare
+  * Mesaje apare imediat (inline, nu popup)
+- ✅ Submit button: buton e enabled și în color (clear actionability)
+- ✅ După submit: secțiune login apare (display: block), form plecare dispare
+- ✅ Login cere parolă cu placeholder: "Introdu parola ta"
+- ✅ ISSUE: Parolă hint nu e explicit → Maria va fi confuză
+  * REMEDIU: Adaugă placeholder: "Parolă: primele 3 litere din destinație (uppercase)"
+
+[Q4] Există altor moduri de a realiza acțiunea / alternative de control?
+────────────────────────────────────────────────────────────────────
+Acțiune: Introdu destinație + date
+⚠️ REZULTAT: NU - e singura opțiune ✓
+
+ANALIZĂ:
+- ✓ Design clar: doar o cale (planificare → login)
+- ✓ Fără alternative confuzante (no tab-switching pre-login)
+- ✓ UX linear și simplu pentru prima dată
+- ⚠️ ISSUE: Nu poți reveni la form dacă ai greșit parolă
+  * REMEDIU: Adaugă buton "Înapoi" la form planning
+
+[Q5] Va înțelege utilizatorul răspunsul sistemului / va recognaște dacă e corect?
+─────────────────────────────────────────────────────────────────────────
+Răspuns sistem: Mesaj eroare "Parola incorectă" ROȘU + Mesaj welcome "Bine ai venit..."
+⚠️ REZULTAT: BUN ✓✓
+
+ANALIZĂ:
+- ✅ Eroare e roșu clar (#dc3545) → universal recunoscut ca eroare
+- ✅ Mesaj: "Parola incorectă" e explicit și direct
+- ✅ Success: Header se update cu "Bine ai venit! Călătoria ta: X (date)"
+- ✅ Secțiuni se unlock (itinerarySection, packingSection, etc.)
+- ✓ Visual feedback e dramatic (header animation fade-in)
+
+RECOMANDĂRI:
+─────────────
+1. ⚠️ Adaugă label-uri explicite (nu doar placeholder)
+   PRIORITATE: MEDIU
+   IMPACT: Reduces confusion pentru utilizatori non-tech
+   EFORT: 30 minuto
+
+2. ⚠️ Îmbunătățește hint-ul parolă
+   PRIORITATE: MEDIU
+   IMPACT: Reduce failed login attempts
+   EFORT: 15 minute
+
+3. ⚠️ Adaugă buton "Reset planning" / "Editare destinație"
+   PRIORITATE: MEDIU
+   IMPACT: Allow undo dacă utilizator se grăbește
+   EFORT: 45 minute
+
+OVERALL TASK 1 SCORE: 3.5/5 ✓✗✓✓✓
+- Q1: 1/1 (va încerca)
+- Q2: 1/1 (va observa)
+- Q3: 1/1 (va înțelege efectul)
+- Q4: 0.5/1 (prea linear, no undo)
+- Q5: 1/1 (va recognaște răspuns)
+
+================================================================================
+TASK 2: CONSULTARE PROGNOZELOR METEO
+================================================================================
+
+CONTEXT:
+Utilizator: Sofia (31 ani, architect, planificatoare)
+Device: Desktop
+Acțiune: Click pe activitate → Vezi prognoză meteo
+
+⚠️ REZULTAT GENERAL: NU IMPLEMENTAT ❌
+
+ANALIZĂ:
+Aplicația CURENTĂ nu conține integrare meteo. Task 2 din ETAPA 3 cere:
+"Consulta prognoze meteo pentru locațiile vizitate și adaptează 
+plăbul în funcție de vreme"
+
+REALITATE: Home.html + script.js nu au:
+- ❌ API call la weather service (OpenWeather, MeteoBlue, etc.)
+- ❌ Afișare prognoză în activitate item
+- ❌ Indicator weather per activitate (ploaie, soare, etc.)
+- ❌ Adaptare recomandări pe baza vreme
+
+STATUS: TASK 2 - IMPLEMENTARE NECESARĂ
+─────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Adaugă open-weather API key (free tier: 1000 req/day)
+2. fetch() call la weatherapi.com pentru fiecare activitate cu locație
+3. Display icon + tempeartuă + precipitație în activity-item
+4. Recomandare adaptivă (ex: "Ia o umbrelă, precipitație 80%")
+
+ESTIMATED EFORT: 3-4 ore
+PRIORITATE: MEDIU (nu e crític pentru demo, dar expected feature)
+
+================================================================================
+TASK 3: CREAREA UNEI LISTE DE BAGAJ
+================================================================================
+
+CONTEXT:
+Utilizator: Elena (42 ani, profesor, calator frequent)
+Device: Mobil iOS
+Acțiune: Click "Generează lista automată" → Bifă articole
+
+✅ REZULTAT: BINE IMPLEMENTAT ✓
+
+EVALUARE CU 5 ÎNTREBĂRI:
+
+[Q1] Utilizatorul va încerca o anumită acțiune?
+─────────────────────────────────────────────
+Acțiune: Click pe "Generează lista automată"
+✅ REZULTAT: DA
+
+ANALIZĂ:
+- ✅ Buton e prominent, colorat (gradient violet), text clar
+- ✅ Buton se găsește imediat pe tab "Bagaj"
+- ✅ Text: "Generează lista automată" e clar și actionabil
+- ✅ Affordance evidentă (button shape, color, position)
+
+[Q2] Va observa utilizatorul controlul relevant?
+────────────────────────────────────────────────
+Controluri: Button "Generează...", Checkbox-uri, Button "Șterge"
+✅ REZULTAT: DA - BINE
+
+ANALIZĂ:
+- ✅ Button e prominent, marginea de sus în tab
+- ✅ Checkbox-uri sunt mari (18px × 18px), ușor de apăsat pe mobil
+- ✅ Articole sunt în liste ușor de scanat (category-based grouping)
+- ✅ Icons emoji (🧴 Igienă, 👕 Îmbrăcăminte) ajută visual organization
+
+[Q3] Va înțelege utilizatorul efectul?
+──────────────────────────────────────
+Efect: Click buton → Lista cu 27 articole apare, bifă → articol dispare ușor
+✅ REZULTAT: EXCELENT ✓✓
+
+ANALIZĂ:
+- ✅ Alert după click: "Lista de bagaj a fost generată automat!"
+- ✅ 6 categorii cu heading clar (emoji + text)
+- ✅ Bifă imediat e-chivalentă cu "am ambalat"
+- ✅ Visual feedback: articol bifat devine semi-transparent (opacity 0.6)
+- ✅ Articole se pot șterge individual
+
+[Q4] Existǎ alternative de control?
+──────────────────────────────────────
+✅ REZULTAT: DA - BINE
+
+ANALIZĂ:
+- ✓ Opțiune 1: Generează automată
+- ✓ Opțiune 2: Adaugă manual pe câte unu (form "Adaugă articol")
+- ✓ Utilizator poate COMBINA: genereazā + adaugă custom
+- ✓ Utilizator poate HIBRID: ignore buton, crează manual de la zero
+
+[Q5] Va recunoaște răspunsul sistemului?
+──────────────────────────────────────────
+✅ REZULTAT: DA - CLAR
+
+ANALIZĂ:
+- ✅ Alert pop-up: "Lista de bagaj a fost generată automat!"
+- ✅ Articole apare imediat sub heading
+- ✅ Bifă = visual indicator clar (semi-transparent)
+- ✅ Articol șters dispare de pe pagină (immediate feedback)
+
+RECOMANDĂRI:
+─────────────
+1. ✅ Bagaj task e BINE implementat
+2. ⚠️ MINOR: Adaugă buton "Șterge tot" pentru reset
+   PRIORITATE: LOW
+   EFORT: 15 minute
+
+OVERALL TASK 3 SCORE: 4.5/5 ✓✓✓✓✗
+- Q1: 1/1 (va încerca)
+- Q2: 1/1 (va observa)
+- Q3: 1/1 (va înțelege)
+- Q4: 1/1 (alternative clar)
+- Q5: 0.5/1 (feedback bun, dar alert e intruziv)
+
+================================================================================
+TASK 4: EXPLORAREA EXPERIENȚELOR AUTENTICE VS TURISTICE
+================================================================================
+
+CONTEXT:
+Utilizator: Sofia (31 ani, architect)
+Device: Mobil Android
+Acțiune: Click "Adaugă experiență" → Complet form → Se afișează card în grid
+
+✅ REZULTAT: BINE IMPLEMENTAT ✓
+
+EVALUARE CU 5 ÎNTREBĂRI:
+
+[Q1] Utilizatorul va încerca o anumită acțiune?
+─────────────────────────────────────────────
+Acțiune: Click pe buton "Adaugă experiență"
+✅ REZULTAT: DA - PROMINENT
+
+ANALIZĂ:
+- ✅ Buton colorat, gradient, text clar
+- ✅ Plasat evident în sus pe tab "Experiențe"
+- ✅ Affordance clară (button styling)
+
+[Q2] Va observa utilizatorul controlul relevant?
+────────────────────────────────────────────────
+Controluri: Input, Dropdown, Textarea, Slider rating, Buttons
+✅ REZULTAT: DA - MULT VIZIBIL
+
+ANALIZĂ:
+- ✅ Form e expandabil: apare cu background distinct (#f8f9fa)
+- ✅ Input-uri au border și focus state albastru
+- ✅ Slider e vizibil și interactive (drag to change rating)
+- ✅ Textarea pentru descriere e spațios (3 rânduri)
+- ✅ Butoane "Adaugă" și "Anulează" sunt în culori distincte (verde/roșu)
+
+[Q3] Va înțelege utilizatorul efectul?
+──────────────────────────────────────
+Efect: Completare form → Click "Adaugă" → Card apare în grid
+✅ REZULTAT: EXCELENT
+
+ANALIZĂ:
+- ✅ Form se ascunde după submit
+- ✅ Card nou apare imediat în grid cu informații complete
+- ✅ Card are design atractiv:
+  * Header gradient (culoare secundară)
+  * Icon emoji (🌍, 📸, 🎭)
+  * Rating in stele ⭐
+  * Buton șterge clar
+- ✅ Layout responsive: 1 card pe mobil, 3+ pe desktop
+
+[Q4] Există alternative de control?
+──────────────────────────────────────
+✅ REZULTAT: DA - BINE
+
+ANALIZĂ:
+- ✓ Creare manual via form
+- ✓ Ștergere singure card (buton delete)
+- ✓ Nu există bulk import, dar nu e necesar
+
+[Q5] Va recunoaște răspunsul sistemului?
+──────────────────────────────────────────
+✅ REZULTAT: EXCELENT
+
+ANALIZĂ:
+- ✅ Card apare imediat cu info completă
+- ✅ Form dispare (visual feedback)
+- ✅ Rating în stele e universal recunoscut
+- ✅ Tip experiență (autentică/turistică) e clar cu icon
+- ✅ Buton șterge roșu e obvios (delete action)
+
+RECOMANDĂRI:
+─────────────
+✅ Task 4 e FOARTE BINE implementat - nu sunt recomandări urgente
+
+MINOR:
+- Adaugă culoare background card base pe tip (auto-tint by type)
+  PRIORITATE: LOW
+  EFORT: 20 minute
+
+OVERALL TASK 4 SCORE: 4.8/5 ✓✓✓✓✓
+- Q1: 1/1 (va încerca)
+- Q2: 1/1 (va observa)
+- Q3: 1/1 (va înțelege)
+- Q4: 1/1 (alernatives clari)
+- Q4: 0.8/1 (feedback bun, maybe slight delay per?)
+
+================================================================================
+TASK 5: SINCRONIZARE CALENDAR
+================================================================================
+
+⚠️ REZULTAT GENERAL: NU IMPLEMENTAT ❌
+
+CONTEXT:
+Utilizator: Planner care vrea să sincronizeze activități cu Google Calendar
+Acțiune: Export/sync activități la calendar extern
+
+REALITATE: Aplicația NU conține:
+- ❌ Google Calendar API integration
+- ❌ Export ICS format
+- ❌ Sync bidirectional
+- ❌ UI pentru calendar selection
+
+STATUS: TASK 5 - IMPLEMENTARE NECESARĂ
+─────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Adaugă Google Calendar OAuth2
+2. Fetch events din Google Calendar
+3. Display în aplicație
+4. Two-way sync (add local → sync remote, vice-versa)
+
+ESTIMATED EFORT: 4-5 ore
+PRIORITATE: MEDIU-ÎNALT (feature important, dar complex)
+
+================================================================================
+TASK 6: NOTIFICARE ZBORURI / ALARME
+================================================================================
+
+⚠️ REZULTAT GENERAL: NU IMPLEMENTAT ❌
+
+CONTEXT:
+Utilizator: Calator care vrea notificări pentru check-in zbor, boarding, etc.
+Acțiune: Set reminder pentru 24h înainte de zbor
+
+REALITATE: Aplicația NU conține:
+- ❌ Reminder/notification system
+- ❌ Browser notifications API
+- ❌ Local notifications pe mobil
+- ❌ Email notifications
+
+STATUS: TASK 6 - IMPLEMENTARE NECESARĂ
+─────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Adaugă activități cu tip "Flight" (implicit reminder)
+2. Set reminder time: 24h, 6h, 1h before
+3. Use browser Notification API
+4. Local persistence în localStorage
+
+ESTIMATED EFORT: 2-3 ore
+PRIORITATE: MEDIU (nice-to-have pentru usability)
+
+================================================================================
+TASK 7: CONVERSIE MONEDĂ AUTOMATĂ
+================================================================================
+
+CONTEXT:
+Utilizator: Turist care cheltuie în mai multe monede
+Acțiune: Click pe cheltuială → Conversie automată în monedă de origem
+
+⚠️ REZULTAT GENERAL: PARȚIAL ❌
+
+REALITATE:
+- ✅ Sistem de cheltuieli e implementat (TASK 7.1)
+- ✅ Input "Sumă ($)" permite orice valoare
+- ❌ NU e conversie automată (toți valorile în USD)
+- ❌ NU e selector monedă
+- ❌ NU e API call la exchange rates
+
+STATUS: TASK 7 - IMPLEMENTARE NECESARĂ (conversie)
+─────────────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Adaugă dropdown "Monedă" (USD, EUR, RON, GBP, etc.)
+2. Adaugă API call la exchangerate-api.com
+3. Auto-convert toate cheltuielile la monedă de origin
+4. Display în budgetSummary:
+   - "Total Planificat: €450.00 (RON 2200)"
+   - "Total Cheltuit: €320.00 (RON 1560)"
+
+ESTIMATED EFORT: 2-3 ore
+PRIORITATE: MEDIU-ÎNALT
+
+================================================================================
+TASK 8: HARTĂ INTERACTIVĂ PENTRU NAVIGARE
+================================================================================
+
+CONTEXT:
+Utilizator: Nina (52 ani, turist)
+Device: Mobil iPhone
+Acțiune: Click "Vizualizează pe Hartă" → SVG map + timeline
+
+✅ REZULTAT: BINE IMPLEMENTAT ✓
+
+EVALUARE CU 5 ÎNTREBĂRI:
+
+[Q1] Utilizatorul va încerca o anumită acțiune?
+─────────────────────────────────────────────
+Acțiune: Click pe buton "Vizualizează pe Hartă"
+✅ REZULTAT: DA - EVIDENT
+
+ANALIZĂ:
+- ✅ Buton în tab "Itinerar", colorat, text clar "Vizualizează pe Hartă"
+- ✅ Affordance evidentă
+
+[Q2] Va observa utilizatorul controlul relevant?
+────────────────────────────────────────────────
+Controluri: SVG map, Timeline, Button "Înapoi la itinerar"
+✅ REZULTAT: DA - CLAR
+
+ANALIZĂ:
+- ✅ SVG map ocupă 100% width, înalt (600px), background albastru ușor
+- ✅ Timeline e sub hartă, ușor de scanat
+- ✅ Buton "Înapoi" e prominent, gri, în jos
+
+[Q3] Va înțelege utilizatorul efectul?
+──────────────────────────────────────
+Efect: Afișare vizuală spațial-temporală a activităților
+✅ REZULTAT: EXCELENT
+
+ANALIZĂ:
+- ✅ SVG markeri sunt numerotați (1-5, etc.) → ordre clar
+- ✅ Fiecare marker e cerc violet cu număr alb
+- ✅ Label sub marker (locație, truncheat la 15 caractere)
+- ✅ Timeline parallel:
+  * Ore pe stânga (09:00, 12:00, etc.)
+  * Nume activitate în centru
+  * Locație sub
+  * Durată pe dreapta
+- ✅ Visual grouping e clar
+
+[Q4] Există alternative de control?
+──────────────────────────────────────
+✅ REZULTAT: DA - SUFICIENT
+
+ANALIZĂ:
+- ✓ Opțiune 1: Vizualizare hartă SVG
+- ✓ Opțiune 2: Timeline text
+- ✓ Opțiune 3: Revert la itinerar list (buton "Înapoi")
+- ⚠️ NU e zoom/pan pe hartă (limitation SVG static)
+
+[Q5] Va recunoaște răspunsul sistemului?
+──────────────────────────────────────────
+✅ REZULTAT: BINE
+
+ANALIZĂ:
+- ✅ Hartă se load imediat
+- ✅ Markeri cu numere 1-N sunt clar
+- ✅ Timeline cu ore și nume e ușor de urmărit
+- ✅ Buton "Înapoi" e clar și prominent
+
+RECOMANDĂRI:
+─────────────
+1. ⚠️ Adaugă hover effect pe markeri
+   - Hover pe marker #3 → highlight timeline item #3
+   PRIORITATE: MEDIU
+   EFORT: 30 minute
+
+2. ⚠️ Adaugă zoom/pan pentru SVG (dacă sunt 20+ markeri)
+   PRIORITATE: LOW (NU e necesar pentru 5-8 activități)
+   EFORT: 1-2 ore
+
+OVERALL TASK 8 SCORE: 4.5/5 ✓✓✓✓✗
+- Q1: 1/1 (va încerca)
+- Q2: 1/1 (va observa)
+- Q3: 1/1 (va înțelege)
+- Q4: 0.5/1 (no zoom, limited alternatives)
+- Q5: 1/1 (feedback clar)
+
+================================================================================
+TASK 10: PLĂNIFICARE CELOR MAI BUNE TIMPI PENTRU TRANSPORT
+================================================================================
+
+⚠️ REZULTAT GENERAL: PARȚIAL ❌
+
+CONTEXT:
+Utilizator: Planner care vrea să optimizeze timing transport
+Acțiune: Sistem recomandă best times pe bază de traffic/transit
+
+REALITATE:
+- ✅ Sistem de activități e implementat
+- ✅ Fiecare activitate are: dată, ora, durată
+- ❌ NU e integrare cu transport API (Google Maps, Rome2Rio, etc.)
+- ❌ NU e recomandare timing
+- ❌ NU e warning pe overlapping schedules
+
+STATUS: TASK 10 - IMPLEMENTARE NECESARĂ
+──────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Integrare Google Maps Directions API
+2. Calculate travel time între activități
+3. Warn dacă timp insuficient (ex: 30min timp dar 45min travel)
+4. Recomendare: "Ai 30 minute înainte de următoare activitate, 
+   dar travel time e 45 minute. Sugerez să-ți schimbi ora"
+
+ESTIMATED EFORT: 3-4 ore
+PRIORITATE: MEDIU-ÎNALT
+
+================================================================================
+TASK 12: NOTIȚE PERSONALE ȘI JURNAL TRAVEL
+================================================================================
+
+⚠️ REZULTAT GENERAL: PARȚIAL ❌
+
+CONTEXT:
+Utilizator: Jurnaler care vrea să-și note impresii pe parcurs
+Acțiune: Adaugă note libere per activitate sau per zi
+
+REALITATE:
+- ✅ Activități au câmp "notes" (textarea)
+- ❌ NU e jurnal dedicated (gânduri, emoții, photos)
+- ❌ NU e per-day journal entries
+- ❌ NU e photo integration
+
+STATUS: TASK 12 - IMPLEMENTARE NECESARĂ (journal section)
+──────────────────────────────────────────────────────────
+
+REMEDIU PROPUS (pentru ETAPA 8+):
+1. Adaugă "Journal" tab separat
+2. Per-day entries cu text editor
+3. Opțional: photo upload (via file input)
+4. Timeline: fiecare entry datat
+
+ESTIMATED EFORT: 2-3 ore
+PRIORITATE: LOW (nice-to-have)
+
+================================================================================
+REZUMAT EVALUARE
+================================================================================
+
+TASK 1 (Planificare):
+  Score: 3.5/5 ✓✗✓✓✓
+  Status: IMPLEMENTAT (minor improvements needed)
+  Issues: No undo, parolă hint unclear
+
+TASK 2 (Meteo):
+  Score: 0/5 ❌
+  Status: NU IMPLEMENTAT
+  Remediu: +3-4 ore OpenWeather API
+
+TASK 3 (Bagaj):
+  Score: 4.5/5 ✓✓✓✓✗
+  Status: BINE IMPLEMENTAT
+  Issues: Minor UX (alert intruziv)
+
+TASK 4 (Experiențe):
+  Score: 4.8/5 ✓✓✓✓✓
+  Status: EXCELENT IMPLEMENTAT
+  Issues: None crítics
+
+TASK 5 (Calendar Sync):
+  Score: 0/5 ❌
+  Status: NU IMPLEMENTAT
+  Remediu: +4-5 ore Google Calendar API
+
+TASK 6 (Notificări zbor):
+  Score: 0/5 ❌
+  Status: NU IMPLEMENTAT
+  Remediu: +2-3 ore Browser Notifications API
+
+TASK 7 (Conversie monedă):
+  Score: 1/5 ❌✗✗✗
+  Status: PARȚIAL (buget e, conversie lipsește)
+  Remediu: +2-3 ore Exchange Rate API
+
+TASK 8 (Hartă):
+  Score: 4.5/5 ✓✓✓✓✗
+  Status: BINE IMPLEMENTAT
+  Issues: No hover effects, no zoom
+
+TASK 10 (Transport timing):
+  Score: 0/5 ❌
+  Status: NU IMPLEMENTAT
+  Remediu: +3-4 ore Google Maps API
+
+TASK 12 (Jurnal):
+  Score: 1/5 ❌
+  Status: PARȚIAL (activități au notes, nu e jurnal dedicated)
+  Remediu: +2-3 ore Journal tab
+
+================================================================================
+STATISTICI GENERALE
+================================================================================
+
+TOTAL TASKS EVALUATE: 8 din 12 (66%)
+TASKS COMPLETE: 4 (50%)
+TASKS PARTIAL: 2 (25%)
+TASKS NOT IMPLEMENTED: 2 (25%)
+
+AVERAGE SCORE: (3.5 + 0 + 4.5 + 4.8 + 0 + 0 + 1 + 4.5 + 0 + 1) / 8 = 2.4/5
+
+BIG PICTURE SCORING:
+- Implemented core features: 65% ✓
+- Missing API integrations: 35% ❌
+- Excellent UX: 40% ✓✓
+- Good UX: 30% ✓
+- Needs work: 30% ⚠️
+
+PRIORITIZED REMEDIATION:
+1. [ALTA] TASK 7 - Conversie monedă (2-3 ore)
+2. [ALTA] TASK 2 - Meteo (3-4 ore)
+3. [MEDIE] TASK 8 - Hover effects pe hartă (30 min)
+4. [MEDIE] TASK 1 - Undo/reset planning (45 min)
+5. [MEDIE] TASK 6 - Notifications (2-3 ore)
+6. [MEDIE] TASK 10 - Transport timing (3-4 ore)
+7. [MEDIE] TASK 5 - Calendar sync (4-5 ore)
+8. [MICA] TASK 12 - Journal (2-3 ore)
+
+TOTAL IMPROVEMENT EFORT: ~20 ore
+
+================================================================================
+CONCLUZII
+================================================================================
+
+✅ PUNCTE FORTE:
+- Core planificare + itinerar + experiențe sunt BINE implementate
+- UX pentru forme e clar și intuitiv
+- Mobile responsive design
+- localStorage persistence
+- Visual design e atractiv (gradient, colors, spacing)
+
+❌ PUNCTE SLABE:
+- APIs lipsă (meteo, calendar, notifications, maps, exchange rates)
+- Unilateral (output only, no feedback from external services)
+- Advanced features lipsă (journal, detailed travel optimization)
+
+🎯 PENTRU ETAPA 8 (Nielsen's Heuristics + Improvements):
+Recomandări prioritare:
+1. Adaugă conversie monedă (simple, high-value)
+2. Adaugă prognoze meteo (expected feature)
+3. Adaugă hover/interactivity pe hartă
+4. Adaugă undo pentru planning
+5. Documenteaza limitări în README
+
+STATUS: ETAPA 6 COMPLET
+Data: ianuarie 2026
+Evaluator: Student PIU
+
+================================================================================

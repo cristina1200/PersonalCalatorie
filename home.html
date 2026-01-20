@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistent Personal de Călătorie</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>✈️ Asistent Personal de Călătorie</h1>
+        <h2 id="welcomeHeader" style="display: none; margin-top: 10px; font-size: 24px;"></h2>
+    </header>
+
+    <div class="main-container">
+        <!-- SECTION 1: PLANIFICARE CĂLĂTORIE -->
+        <div class="form-container" id="planningFormContainer">
+            <h2>Planifică o nouă călătorie</h2>
+
+            <form id="planningForm">
+                <div class="form-group">
+                    <input type="text" id="destination" name="destination" placeholder="Destinație (ex: Paris, Franța)">
+                    <div class="error-message" id="destinationError">Introduceți o destinație validă</div>
+
+                    <input type="date" id="startDate" name="startDate" placeholder="Data plecării">
+                    <div class="error-message" id="startDateError">Selectați data plecării</div>
+
+                    <input type="date" id="endDate" name="endDate" placeholder="Data întoarcerii">
+                    <div class="error-message" id="endDateError">Selectați data întoarcerii</div>
+
+                    <input type="number" id="travelers" name="travelers" min="1" value="1" placeholder="Numărul de călători">
+                    <div class="error-message" id="travelersError">Introduceți un număr valid de călători</div>
+
+                    <select id="purpose" name="purpose">
+                        <option value="">Selectați scopul călătoriei</option>
+                        <option value="recreation">Recreere/Vacanță</option>
+                        <option value="business">Interes de serviciu</option>
+                        <option value="mixed">Mixt</option>
+                        <option value="adventure">Aventură</option>
+                        <option value="cultural">Cultural</option>
+                    </select>
+                    <div class="error-message" id="purposeError">Selectați scopul călătoriei</div>
+
+                    <input type="submit" value="Salvează Planul">
+                </div>
+            </form>
+
+            <div class="login-section" id="loginSection" style="display: none;">
+                <h3>Verifică identitatea</h3>
+                <div class="form-group">
+                    <label for="loginPassword">Confirmă parola:</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Introdu parola ta">
+                    <div class="error-message" id="loginError">Parola incorectă</div>
+                    <button id="loginButton">Conectare</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ITINERAR -->
+        <div class="itinerary-section" id="itinerarySection" style="display: none;">
+            <h2>Itinerul tău</h2>
+            
+            <div class="itinerary-controls">
+                <button id="addActivityBtn" class="btn-action">Adaugă Activitate</button>
+                <button id="viewMapBtn" class="btn-action">Vizualizează pe Hartă</button>
+            </div>
+
+            <div class="activity-form-container" id="activityFormContainer" style="display: none;">
+                <h3>Adaugă o nouă activitate</h3>
+                <div class="form-group">
+                    <input type="date" id="activityDate" placeholder="Data">
+                    <input type="time" id="activityTime" placeholder="Ora">
+                    <input type="text" id="activityName" placeholder="Nume activitate">
+                    <input type="text" id="activityLocation" placeholder="Locație">
+                    
+                    <select id="activityCategory">
+                        <option value="">Categorie</option>
+                        <option value="tourist">Atracție turistică</option>
+                        <option value="authentic">Experiență autentică</option>
+                        <option value="dining">Masă</option>
+                        <option value="transport">Transport</option>
+                        <option value="accommodation">Cazare</option>
+                        <option value="shopping">Cumpărături</option>
+                    </select>
+
+                    <input type="number" id="activityDuration" min="0" value="60" placeholder="Durată (minute)">
+                    <textarea id="activityNotes" rows="3" placeholder="Note personale..."></textarea> //pt a accespta mai multe linii de text
+                    
+                    <button type="button" id="saveActivityBtn" class="btn-save">Salvează</button>
+                    <button type="button" id="cancelActivityBtn" class="btn-cancel">Anulează</button>
+                </div>
+            </div>
+
+            <div class="activities-list" id="activitiesList"></div>
+        </div>
+
+        <!-- SECTION 3: HARTA -->
+        <div class="map-section" id="mapSection" style="display: none;">
+            <h2>Harta zilei</h2>
+            
+            <div class="map-container">
+                <div id="mapContainer" style="width: 100%; height: 600px; background: #e8f4f8; border: 1px solid #ddd; position: relative;">
+                    <h3 id="mapTitle" style="text-align: center; padding: 15px; color: #667eea; margin: 0;">Hartă interactivă</h3>
+                    <div id="mapCircles" style="position: relative; height: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="timeline-container">
+                <h3>Timeline-ul zilei</h3>
+                <div class="timeline" id="timeline"></div>
+            </div>
+
+            <button id="backFromMapBtn" class="btn-back">Înapoi la itinerar</button>
+        </div>
+
+        <!-- SECTION 4: BAGAJ -->
+        <div class="packing-section" id="packingSection" style="display: none;">
+            <h2>Lista de bagaj</h2>
+
+            <div class="packing-controls">
+                <button id="generatePackingBtn" class="btn-action">Generează lista automată</button>
+            </div>
+
+            <div class="packing-form-container" id="packingFormContainer" style="display: none;">
+                <h3>Adaugă articol</h3>
+                <div class="form-group">
+                    <input type="text" id="packingItem" placeholder="Articol">
+                    
+                    <select id="packingCategory">
+                        <option value="">Categorie</option>
+                        <option value="documents">Documente</option>
+                        <option value="clothing">Îmbrăcăminte</option>
+                        <option value="toiletries">Igienă</option>
+                        <option value="electronics">Electronice</option>
+                        <option value="accessories">Accesorii</option>
+                        <option value="medications">Medicamente</option>
+                    </select>
+
+                    <input type="number" id="packingQuantity" min="1" value="1" placeholder="Cantitate">
+                    
+                    <button type="button" id="savePackingBtn" class="btn-save">Adaugă</button>
+                    <button type="button" id="cancelPackingBtn" class="btn-cancel">Anulează</button>
+                </div>
+            </div>
+
+            <div class="packing-list" id="packingList"></div>
+        </div>
+
+        <!-- SECTION 5: BUGET -->
+        <div class="budget-section" id="budgetSection" style="display: none;">
+            <h2>Bugetul tău</h2>
+
+            <div class="currency-selector">
+                <label>Monedă: </label>
+                <select id="currencySelect">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="RON">RON (lei)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="CHF">CHF (Fr)</option>
+                </select>
+            </div>
+
+            <div class="budget-summary">
+                <div class="budget-card">
+                    <h3>Total Planificat</h3>
+                    <p id="totalBudget" class="budget-amount">$0.00</p>
+                </div>
+                <div class="budget-card">
+                    <h3>Total Cheltuit</h3>
+                    <p id="totalSpent" class="budget-amount">$0.00</p>
+                </div>
+                <div class="budget-card">
+                    <h3>Rămas</h3>
+                    <p id="remainingBudget" class="budget-amount">$0.00</p>
+                </div>
+            </div>
+
+            <div class="budget-controls">
+                <label for="totalBudgetInput">Buget total pentru vacanță ($):</label>
+                <input type="number" id="totalBudgetInput" min="0" step="0.01" placeholder="Introdu suma...">
+                <button id="setTotalBudgetBtn" class="btn-action">Salvează Buget</button>
+                <button id="addExpenseBtn" class="btn-action">Adaugă Cheltuială</button>
+            </div>
+
+            <div class="expense-form-container" id="expenseFormContainer" style="display: none;">
+                <h3>Adaugă cheltuială</h3>
+                <div class="form-group">
+                    <select id="expenseCategory">
+                        <option value="">Categorie</option>
+                        <option value="accommodation">Cazare</option>
+                        <option value="transport">Transport</option>
+                        <option value="food">Mâncare</option>
+                        <option value="activities">Activități</option>
+                        <option value="shopping">Cumpărături</option>
+                        <option value="other">Altele</option>
+                    </select>
+
+                    <input type="text" id="expenseDescription" placeholder="Descriere">
+                    <input type="number" id="expenseAmount" min="0" step="0.01" placeholder="Sumă ($)">
+                    
+                    <button type="button" id="saveExpenseBtn" class="btn-save">Adaugă</button>
+                    <button type="button" id="cancelExpenseBtn" class="btn-cancel">Anulează</button>
+                </div>
+            </div>
+
+            <div class="expenses-list" id="expensesList"></div>
+        </div>
+
+        <!-- SECTION 6: EXPERIENȚE -->
+        <div class="experiences-section" id="experiencesSection" style="display: none;">
+            <h2>Experiențe autentice vs Turist</h2>
+
+            <div class="experiences-controls">
+                <button id="addExperienceBtn" class="btn-action">Adaugă experiență</button>
+            </div>
+
+            <div class="experience-form-container" id="experienceFormContainer" style="display: none;">
+                <h3>Adaugă experiență</h3>
+                <div class="form-group">
+                    <input type="text" id="experienceName" placeholder="Nume">
+                    
+                    <select id="experienceType">
+                        <option value="">Tip</option>
+                        <option value="authentic">Autentică (Locală)</option>
+                        <option value="tourist">Turistică</option>
+                        <option value="mixed">Amestecată</option>
+                    </select>
+
+                    <textarea id="experienceDescription" rows="3" placeholder="Descriere..."></textarea>
+                    <input type="text" id="experienceLocation" placeholder="Locație">
+                    
+                    <label>Rating: <span id="ratingValue">3</span>/5</label>
+                    <input type="range" id="experienceRating" min="1" max="5" value="3">
+
+                    <button type="button" id="saveExperienceBtn" class="btn-save">Adaugă</button>
+                    <button type="button" id="cancelExperienceBtn" class="btn-cancel">Anulează</button>
+                </div>
+            </div>
+
+            <div class="experiences-grid" id="experiencesGrid"></div>
+        </div>
+
+        <!-- RESET BUTTON -->
+        <div class="reset-container">
+            <button id="resetPlanningBtn" class="btn-reset">Resetează Planul (Start Over)</button>
+        </div>
+
+        <!-- NAVIGATION TABS -->
+        <div class="navigation-tabs">
+            <button class="nav-tab active" data-section="planningFormContainer">Plan</button>
+            <button class="nav-tab" data-section="itinerarySection">Itinerar</button>
+            <button class="nav-tab" data-section="packingSection">Bagaj</button>
+            <button class="nav-tab" data-section="budgetSection">Buget</button>
+            <button class="nav-tab" data-section="experiencesSection">Experiențe</button>
+        </div>
+    </div>
+</body>
+
+</html>

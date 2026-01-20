@@ -1,0 +1,674 @@
+================================================================================
+ETAPA 8: NIELSEN'S 10 USABILITY HEURISTICS EVALUATION
+Asistent Personal de Călătorie - PIU
+Data: ianuarie 2026
+================================================================================
+
+INTRODUCERE
+===========
+Această etapă evaluează aplicația "Asistent Personal de Călătorie" contra 
+celor 10 euristici de usability ale lui Jakob Nielsen. Evaluarea se concentrează 
+pe 3 task-uri critice și furnizează recomandări concrete de improvement.
+
+METODĂ: Heuristic Evaluation
+EVALUATOR: Designer PIU
+SCALE: 1-5 per heuristic (1=severe, 5=excellent)
+TASKS EVALUATED: Task 1 (Planning), Task 4 (Experiences), Task 8 (Map)
+
+================================================================================
+HEURISTIC 1: SYSTEM VISIBILITY & FEEDBACK
+"The system should always keep users informed about what is happening, 
+through real-time feedback and clear communication."
+================================================================================
+
+TASK 1: PLANIFICAREA UNEI CĂLĂTORII
+──────────────────────────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Input validation în timp real - erori apare imediat (inline, non-intrusive)
+✅ Focus state clar pe input-uri (border violet, box-shadow albastră)
+✅ Button state: enabled/disabled vizual distinct
+✅ Mesaj success după login: "Bine ai venit! Călătoria ta: Barcelona..."
+✅ Alert pop-up după salvare (slight intrusive, but clear)
+
+PUNCTE SLABE:
+❌ MINOR: Alert pop-up e intruziv (modal, blocking interaction)
+❌ MINOR: Parolă hint nu e very explicit ("primele 3 litere" nu e clar)
+❌ Nu e progress bar sau indicator de completare form
+
+REMEDII PROPUSE:
+1. Înlocuiește alert-ul cu toast notification (non-blocking)
+   - Position: bottom-right
+   - Auto-dismiss: 3 secunde
+   EFORT: 30 min
+
+2. Îmbunătățește placeholder parolă:
+   - "Parolă: primele 3 litere din destinație, UPPERCASE"
+   EFORT: 5 min
+
+3. Adaugă progress bar: "Pas 1/2: Planificare → Pas 2/2: Confirmă"
+   EFORT: 30 min
+
+RECOMMENDATION PRIORITY: MEDIU (UX improvement non-critical)
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPLORAREA EXPERIENȚELOR
+─────────────────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Form feedback: "Articol adăugat!" (implicit în grid render)
+✅ Card apare imediat cu informație completă
+✅ Rating slider: real-time update de valoare (3, 4, 5)
+✅ Form se auto-reset după submit
+✅ Buton șterge clar roșu, feedback imediat (card dispare)
+✅ Grid layout responsive: feedback vizual imediat pe resize
+
+PUNCTE SLABE:
+❌ NONE - task e excelent implementat
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: HARTĂ INTERACTIVĂ
+──────────────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ SVG map render imediat
+✅ Markeri cu numere clare (1-5, etc.)
+✅ Timeline parallel arată ordine
+✅ Hover effect: marker se mărește, timeline item highlight (NEW!)
+
+PUNCTE SLABE:
+❌ MINOR: Fără loading indicator dacă ar fi AJAX (nu e relevant acum)
+❌ MINOR: Fără zoom/pan feedback (user expectation: map e statică)
+
+OVERALL HEURISTIC 1: 4.3/5 ✓✓✓✓
+
+================================================================================
+HEURISTIC 2: MATCH SYSTEM & REAL WORLD
+"The system should speak the users' language, with words, phrases, 
+and concepts familiar to the user."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Terminologie în limba română - clar și accesibil
+✅ Labels accesibile: "Destinație", "Data plecării", "Scop", etc.
+✅ Placeholder-uri exemplu: "(ex: Paris, Franța)" - context clar
+✅ Dropdown scop cu opțiuni familiare: "Recreation", "Business", "Adventure"
+✅ Mesaje eroare în limba română, direct și clear
+✅ Feedback: "Bine ai venit!" e personal și warm
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ "Experiență autentică" vs "Turistică" - concepte clar și familiare
+✅ Emojis: 🌍 (local), 📸 (tourist), 🎭 (mixed) - universal recognized
+✅ Rating în stele ⭐ - universal language
+✅ Tipuri de categorie match-eaza user mental model
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ "Hartă interactivă" - cuvânt familiar
+✅ Timeline cu ore în format 24h - standard în România
+✅ Locații în limba română
+✅ Icons: 🕐 (time), 📍 (location) - universal
+
+OVERALL HEURISTIC 2: 5/5 ✓✓✓✓✓
+
+================================================================================
+HEURISTIC 3: USER CONTROL & FREEDOM
+"Users should be able to undo/redo actions and exit unwanted states 
+without extensive dialogue."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 3.5/5 ✓✓✓✗
+
+PUNCTE FORTE:
+✅ Form resetare: clear input-uri cu empty values
+✅ Buton "Anulează" pe form (toggle form visibility)
+✅ NEW: Reset planning button - "Start Over" (complete undo)
+
+PUNCTE SLABE:
+❌ NU e redo (once you reset, you can't redo - acceptable)
+❌ Parolă greșită: NU e "Try again" button clar (trebuie să rememorezi)
+❌ NU e "Back" button dacă ai greșit parolă în prima pagină
+
+REMEDII PROPUSE:
+1. Adaugă "Edit Destination" buton dacă login reușit
+   EFORT: 30 min
+
+2. Parolă failed: buton "Retry" (nu trebuie să reîncărcați pagina)
+   EFORT: 20 min
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Buton "Anulează" pe form - ușor de exit
+✅ Buton "Șterge" pe card - undo articol
+✅ Form se resetează automat după submit
+✅ Grid e easy to scan - easy to identify și modify entries
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Buton "Înapoi la itinerar" - ușor de exit hartă
+✅ Tab switching: ușor de navigate la altă secțiune
+✅ Itinerar e editable: poți șterge activitate și hartă se recalculeaza
+
+PUNCTE SLABE:
+❌ MINOR: Zoom/pan nu e posibil pe hartă (user might expect it)
+❌ NU e "Edit activity from map" - trebuie să revii la itinerar
+
+OVERALL HEURISTIC 3: 4.2/5 ✓✓✓✓
+
+================================================================================
+HEURISTIC 4: SYSTEM STANDARDS & CONSISTENCY
+"Follow platform conventions and design patterns to reduce learning curve."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 4.5/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Buton design consistent: gradient violet, hover effect
+✅ Input styling consistent: border #e0e0e0, focus #667eea
+✅ Error message design: roșu (#dc3545), inline, same font size
+✅ Layout: centered, 1 coloană - standard form pattern
+✅ Form submission: standard HTML form behavior
+
+PUNCTE SLABE:
+❌ MINOR: Login form pattern e non-standard (hidden section reveal)
+   - Standard: separate page, or modal popup
+❌ MINOR: Parolă input labeled "Confirmă parola" e confusing
+   - Standard: "Parolă", nu "Confirmă"
+
+REMEDII PROPUSE:
+1. Etichetă corectă: "Parolă" (nu "Confirmă")
+   EFORT: 5 min
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Form pattern: consistent cu Task 1 (same input style, same buttons)
+✅ Grid card pattern: consistent design across all cards
+✅ Delete button: consistent roșu, same size/position
+✅ Slider: standard HTML5 range input
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ SVG rendering: no external libraries (consistent tech stack)
+✅ Timeline: same styling ca alte list-uri în app
+✅ Back button: same design ca alte back/cancel buttons
+
+PUNCTE SLABE:
+❌ SVG markers: nu e interaction pattern standard (user might expect Pan/zoom)
+
+OVERALL HEURISTIC 4: 4.5/5 ✓✓✓✓
+
+================================================================================
+HEURISTIC 5: ERROR PREVENTION & RECOVERY
+"Prevent problems from occurring in the first place, or provide recovery info."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Input validation în timp real previne submit invalid
+✅ Date picker: forțează format valid (HTML5 <input type="date">)
+✅ Dropdown scop: forțează valid option (nu free text)
+✅ Erori în-line: ne permite să corectez imediat (nu surprize la submit)
+✅ Parolă hint ajută recovery (primele 3 litere)
+
+PUNCTE SLABE:
+❌ NU e confirmation dialog înainte de reset (NEW: adăugat)
+❌ Parolă greșită: nu e hint clar (care sunt primele 3 litere?)
+
+REMEDII PROPUSE:
+1. Parolă greșită: sugestie "Paris → PAR?" (explicit hint)
+   EFORT: 20 min
+
+2. Reset planning: confirmation dialog cu "Ești sigur?" (DONE!)
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Dropdown categorie: forțează valid option
+✅ Rating slider: forțează 1-5 range (nu free number)
+✅ Form required fields: NU poti submit fără completare
+✅ Delete buton: implicit confirm (just hits delete)
+✅ (RECOMANDARE: Adaugă confirm dialog pe delete - "Ești sigur?")
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ SVG map: nu e interactive (no accidental clicks)
+✅ Back button clear: nu poti accidental delete hartă
+
+PUNCTE SLABE:
+❌ NU e warning dacă utilizator nu are activități (empty map - confusing)
+   - REMEDIU: "Nu ai activități. Adaugă activități din tab Itinerar."
+
+OVERALL HEURISTIC 5: 4.3/5 ✓✓✓✓
+
+================================================================================
+HEURISTIC 6: FLEXIBILITY & EFFICIENCY
+"Support both novice and expert users (shortcuts, customization, etc.)"
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 3/5 ✓✓✗
+
+PUNCTE FORTE:
+✅ Date picker: rapide decât manual typing
+✅ Dropdown scop: rapide decât free text
+✅ Currency selector (NEW): rapid switch
+
+PUNCTE SLABE:
+❌ NU e autofill (date, destinații frecvente)
+❌ NU e keyboard shortcuts
+❌ NU e bulk import (CSV cu activități)
+❌ NU e "Quick start" template (ex: "Weekend trip to Paris")
+
+REMEDII PROPUSE:
+1. Autofill destinații frecvente (localStorage history)
+   EFORT: 1 oră
+
+2. Keyboard shortcut: Enter pe form = submit (might already work)
+   EFORT: 15 min
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Form expandabil: nu trebuie să derulezi (visible on same screen)
+✅ Grid: easy to scan și modify
+✅ Drag-and-drop: NU implementat, dar NU e și necesar
+
+PUNCTE SLABE:
+❌ NU e batch delete (checkbox "select multiple")
+❌ NU e sort options (by rating, by type)
+❌ NU e filter/search
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 3.5/5 ✓✓✓✗
+
+PUNCTE FORTE:
+✅ Timeline: easy alternative to map
+✅ Back button: easy exit
+
+PUNCTE SLABE:
+❌ NU e zoom (voor sa vada detalii)
+❌ NU e pan (move around map)
+❌ NU e filter (show only today's activities)
+❌ NU e "Optimize route" suggestion
+
+OVERALL HEURISTIC 6: 3.5/5 ✓✓✓✗
+
+================================================================================
+HEURISTIC 7: AESTHETIC & MINIMALIST DESIGN
+"Remove unnecessary clutter. Focus on essential functions."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Form simplu: doar 5 câmpuri necesare
+✅ No unnecessary decorations
+✅ Culori: consistent palette (violet-indigo-white)
+✅ Spacing: bun (padding, gap-uri)
+✅ Typography: clear hierarchy (h1, h2, labels)
+✅ Icons: minimal, only essential (emoji in purpose)
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Card design: clean, no clutter
+✅ Icons: emoji, minimal și apropriați
+✅ Color gradient header: attractive fără distraction
+✅ Form: compact, essentials only
+✅ Grid responsive: cards scale nicely
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ SVG map: minimal, no unnecessary details
+✅ Timeline: clean layout, easy to scan
+✅ Colors: consistent, not overwhelming
+✅ Text: minimal labels
+
+OVERALL HEURISTIC 7: 5/5 ✓✓✓✓✓
+
+================================================================================
+HEURISTIC 8: HELP & DOCUMENTATION
+"Provide accessible, task-focused help documentation."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 2.5/5 ✓✗✗
+
+PUNCTE FORTE:
+✅ Placeholder-uri: "Destinație (ex: Paris, Franța)"
+✅ Erori în-line: explain ce e greșit
+✅ README.md: documentație completă
+
+PUNCTE SLABE:
+❌ NU e hover help/tooltip pe labels
+❌ NU e FAQ section
+❌ NU e video tutorial
+❌ Parolă hint: nu e clar unde e descris
+❌ Form validation: NU e "Why is this required?" explanation
+
+REMEDII PROPUSE:
+1. Adaugă tooltip pe parolă input: "Primele 3 litere din destinație, UPPERCASE"
+   EFORT: 30 min
+
+2. Adaugă "<?" icon cu tooltip pe labels
+   EFORT: 1 oră
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 3/5 ✓✓✗
+
+PUNCTE FORTE:
+✅ Labels: clar ce se cere
+✅ Dropdown opțiuni: self-explanatory
+✅ Rating slider: visual indicator
+
+PUNCTE SLABE:
+❌ NU e help text pe "Tip de experiență" (ce diferență între "autentică" vs "turistică"?)
+❌ NU e example card pre-filled
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 3/5 ✓✓✗
+
+PUNCTE FORTE:
+✅ Titlu hartă: "París - Hartă interactivă"
+✅ Timeline: self-explanatory
+
+PUNCTE SLABE:
+❌ NU e explanation pe ce sunt markerele 1-5
+❌ NU e legend (ce înseamnă culori/dimensiuni)
+
+OVERALL HEURISTIC 8: 2.8/5 ✓✓✗
+
+================================================================================
+HEURISTIC 9: ERROR MESSAGES
+"Express errors in plain language, suggest solutions."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Erori în-line: nu ambiguu
+✅ Texte clar: "Introduceți o destinație validă" (exact ce e greșit)
+✅ Culoare roșu: universal pentru eroare
+✅ Parolă: "Parola incorectă" (clar)
+
+PUNCTE SLABE:
+❌ NU e error recovery suggestion:
+   - "Parola incorectă. Hint: primele 3 litere din 'Paris' = 'PAR'"
+❌ NU e "Why?" explanation
+
+REMEDII PROPUSE:
+1. Parolă error: adaugă hint (destinație → PAR)
+   EFORT: 15 min
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 4.5/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ NU sunt many error scenarios (form e simple)
+✅ Validation messages (implicit): "Completați toate câmpurile!"
+
+PUNCTE SLABE:
+❌ MINOR: NU e "name too long" validation (display name might overflow)
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ "Nu ai activități. Adaugă..." message - helpful
+
+PUNCTE SLABE:
+❌ NU e error handling dacă SVG fail to render
+
+OVERALL HEURISTIC 9: 4.2/5 ✓✓✓✓
+
+================================================================================
+HEURISTIC 10: HELP & EMERGENCY EXIT
+"Provide obvious ways to exit unwanted states (emergency exits)."
+================================================================================
+
+TASK 1: PLANNING
+────────────────
+EVALUARE: 4/5 ✓✓✓✓
+
+PUNCTE FORTE:
+✅ Buton "Reset Planning" - nuclear option
+✅ Form clearable: golir toate input-urile
+✅ Browser back button: funcționează
+
+PUNCTE SLABE:
+❌ NU e "Cancel login" buton (dacă ai greșit parolă, trebuie să resetezi)
+❌ NU e "Edit destination" după login
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 4: EXPERIENCES
+────────────────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Buton "Anulează" pe form: exit rapid
+✅ Buton șterge pe card: remove any entry
+✅ Tab switching: easy escape
+✅ NU e modal trapping (form e dismiss-able)
+
+────────────────────────────────────────────────────────────────────────────
+
+TASK 8: MAP
+───────────
+EVALUARE: 5/5 ✓✓✓✓✓ EXCELLENT
+
+PUNCTE FORTE:
+✅ Buton "Înapoi la itinerar" - clear exit
+✅ Tab switching - escape option
+✅ NU e modal (can navigate freely)
+
+OVERALL HEURISTIC 10: 4.7/5 ✓✓✓✓✓
+
+================================================================================
+REZUMAT EVALUARE COMPLETE
+================================================================================
+
+HEURISTIC SCORES:
+
+1. VISIBILITY & FEEDBACK:           4.3/5 ✓✓✓✓
+2. MATCH SYSTEM & REAL WORLD:       5/5   ✓✓✓✓✓
+3. USER CONTROL & FREEDOM:          4.2/5 ✓✓✓✓
+4. SYSTEM STANDARDS & CONSISTENCY:  4.5/5 ✓✓✓✓
+5. ERROR PREVENTION & RECOVERY:     4.3/5 ✓✓✓✓
+6. FLEXIBILITY & EFFICIENCY:        3.5/5 ✓✓✓✗
+7. AESTHETIC & MINIMALIST:          5/5   ✓✓✓✓✓
+8. HELP & DOCUMENTATION:            2.8/5 ✓✓✗
+9. ERROR MESSAGES:                  4.2/5 ✓✓✓✓
+10. EMERGENCY EXIT:                 4.7/5 ✓✓✓✓✓
+
+────────────────────────────────────
+AVERAGE SCORE:  4.2/5 ✓✓✓✓
+
+INTERPRETATION:
+- 4.2/5 = BINE IMPLEMENTAT cu minor improvements needed
+- Strong in: design, consistency, control, messaging
+- Weak in: documentation, advanced features (zoom, batch operations)
+
+================================================================================
+TOP 10 IMPROVEMENT RECOMMENDATIONS
+================================================================================
+
+PRIORITATE ÎNALTĂ:
+1. [HEURISTIC 8] Adaugă tooltip help text pe câmpuri principale
+   EFORT: 1 oră
+   IMPACT: +1.5 puncte (help access)
+
+2. [HEURISTIC 1] Parolă hint explicit: "Paris → PAR"
+   EFORT: 15 min
+   IMPACT: +0.5 puncte (error recovery)
+
+PRIORITATE MEDIE:
+3. [HEURISTIC 6] Autofill destinații frecvente
+   EFORT: 1 oră
+   IMPACT: +0.3 puncte (efficiency)
+
+4. [HEURISTIC 3] Buton "Edit destination" după login
+   EFORT: 45 min
+   IMPACT: +0.3 puncte (control)
+
+5. [HEURISTIC 8] Adaugă FAQ popup: "Ce sunt experiențe autentice?"
+   EFORT: 30 min
+   IMPACT: +0.5 puncte
+
+6. [HEURISTIC 6] Adaugă "Optimize route" suggestion pe hartă
+   EFORT: 2 ore
+   IMPACT: +0.5 puncte
+
+PRIORITATE JOASĂ:
+7. [HEURISTIC 6] Zoom/pan pe SVG map
+   EFORT: 2-3 ore
+   IMPACT: +0.3 puncte
+
+8. [HEURISTIC 4] Corectare label: "Confirmă parolă" → "Parolă"
+   EFORT: 5 min
+   IMPACT: +0.1 puncte
+
+9. [HEURISTIC 5] Confirm dialog pe delete experience
+   EFORT: 30 min
+   IMPACT: +0.3 puncte
+
+10. [HEURISTIC 1] Toast notification (non-blocking) vs alert
+    EFORT: 45 min
+    IMPACT: +0.3 puncte
+
+TOTAL POTENTIAL IMPROVEMENT: +4.2 puncte → FINAL: 8.4/10 (EXCELLENT)
+TOTAL EFORT: ~8-10 ore (priorit. înalt + medie)
+
+================================================================================
+IMPROVEMENTS MADE (ETAPA 8)
+================================================================================
+
+✅ [HEURISTIC 5] Confirmation dialog pe reset planning
+   - "Ești sigur? Vei pierde TOATE datele"
+   - Status: IMPLEMENTED
+   - File: script.js (function resetPlanning)
+
+✅ [HEURISTIC 1] Hover effects pe hartă
+   - Marker hover → Timeline item highlight
+   - Timeline hover → Marker highlight (ready for next phase)
+   - Status: IMPLEMENTED
+   - File: script.js (function drawMap)
+
+✅ [HEURISTIC 6] Currency selector
+   - Rapid switch: USD, EUR, GBP, RON, JPY, CHF
+   - Real-time conversion display
+   - Status: IMPLEMENTED
+   - File: script.js + home.html
+
+================================================================================
+CONCLUSION
+================================================================================
+
+Aplicația "Asistent Personal de Călătorie" e BINE IMPLEMENTATĂ cu un score 
+de 4.2/5 contra Nielsen's 10 heuristics. Punctele forte sunt design aesthetics,
+consistency, și user control. Punctele slabe sunt documentation și advanced 
+efficiency features.
+
+CU IMPROVEMENTS (prioritate înalt + medie), aplicația ar putea ajunge la 8.4/10
+(EXCELLENT), dar pentru MVP curent (4.2/5) e satisfăcător pentru academic 
+project submission.
+
+RECOMANDARE FINALĂ:
+- SUBMIT CURENT: 4.2/5 - suficient pentru examen
+- POST-SUBMISSION: implementează top 5 improvements → 8.4/10 (pro version)
+
+STATUS: ETAPA 8 COMPLET ✓
+Data: ianuarie 2026
+Evaluator: Student PIU
+
+================================================================================

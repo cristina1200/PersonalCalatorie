@@ -1,0 +1,531 @@
+================================================================================
+ETAPA 5: USER SCENARIOS (SCENARII DE UTILIZARE)
+Asistent Personal de Călătorie - PIU
+Data: ianuarie 2026
+================================================================================
+
+INTRODUCERE
+===========
+Această etapă prezintă scenarii detaliate de utilizare pentru 4 din cele 12 
+user tasks. Fiecare task are 2 scenarii distincte care ilustrează diferite 
+contexte, nivele de utilizare și căi de interacție cu sistemul.
+
+Taskurile selectate pentru ETAPA 5:
+  1. Task 1: Planificarea unei noi călătorii
+  2. Task 3: Crearea unei liste de bagaj personalizate
+  3. Task 4: Explorarea și găsirea de experiențe autentice
+  4. Task 8: Utilizarea unei hărți interactive pentru navigare
+
+================================================================================
+TASK 1: PLANIFICAREA UNEI NOI CĂLĂTORII
+================================================================================
+
+SCENARIU 1.1: "Maria - Prima călătorie în străinătate"
+────────────────────────────────────────────────────────
+
+CONTEXT:
+Maria, 28 ani, IT specialist, planifică prima sa vacanță în străinătate.
+Nu are experiență cu aplicații de planificare. Inițiază planificarea pe 
+desktop acasă seara după muncă. Are smartphone cu ea, dar preferă desktop 
+pentru introducere detalii.
+
+FLUXUL SCENARIO:
+1. Maria deschide aplikația home.html în browser Chrome
+2. Vede header "✈️ Asistent Personal de Călătorie" și form "Planifică o nouă călătorie"
+3. Introduce destinație: "Barcelona, Spania"
+4. Selectează data plecare: 15 martie 2026
+5. Selectează data întoarcere: 22 martie 2026
+6. Introduce 1 călător (doar ea)
+7. Selectează scop: "Recreation/Vacanță"
+8. Apasă "Salvează Planul"
+
+REACȚII SISTEM:
+✅ Validare în timp real pe câmp Destinație (min 3 caractere)
+✅ Selectare date cu calendar picker
+✅ Validare: data întoarcere > data plecare
+✅ Selectare dropdown scop cu 5 opțiuni
+✅ Form confirmation cu mesaj "Planul salvat cu succes"
+✅ Afișare secțiune autentificare: "Confirmaă identitatea"
+
+INTERACȚIUNE CU PAROLA:
+- Sistem cere parolă (indiciu: "primele 3 litere din destinație, uppercase")
+- Maria încearcă "BAR" - GREȘIT
+- Sistem afișează eroare roșu: "Parola incorectă"
+- Maria recitește destinația și introduceți "BAR" - GREȘIT din nou
+- Maria realizează: Barcelona → "BAC"
+- Introduce "BAC" - CORECT ✅
+- Sistem afișează welcome: "Bine ai venit! Călătoria ta: Barcelona, Spania (15.03-22.03)"
+
+SUCCESUL SCENARIULUI:
+✅ Form validation clar cu mesaje de eroare inline
+✅ UX clar pentru introducere date
+✅ Parolă simplă dar sigură
+✅ Feedback vizual imediat
+
+ERORI POTENȚIALE PREVENITE:
+- ❌ Utilizator introduceți dată înainte de plecare → validare
+- ❌ Utilizator omite câmp obligatoriu → mesaj eroare
+- ❌ Utilizator uită parola → indicator clar (primele 3 litere)
+
+JUSTIFICARE DESIGN:
+Scenariul illustrează UX simplu și clar pentru utilizatori noi. Validarea 
+în timp real reduces frustration. Mesaje de eroare inline sunt mai utile 
+decât popup-uri. Parolă bazată pe destinație e ușor de memorat.
+
+────────────────────────────────────────────────────────────────────────────
+
+SCENARIU 1.2: "Alex - Planificare grup cu mai mulți călători"
+──────────────────────────────────────────────────────────────
+
+CONTEXT:
+Alex, 35 ani, manager, planifică o călătorie în grup cu 8 prieteni.
+A mai folosit aplicații de travel planning. Inițiază planificarea pe laptop
+la birou în pauza de masă. Cunoaște deja destinația (Amsterdam).
+
+FLUXUL SCENARIO:
+1. Alex deschide home.html, vede form gol
+2. Introduce rapid "Amsterdam, Olanda"
+3. Selectează date: 01-10 iulie 2026 (vacanță de vară)
+4. Introduce 8 călători (grup)
+5. Selectează scop: "Recreation/Vacanță"
+6. Apasă "Salvează Planul"
+7. Form validation trece
+8. Apare cerință parolă: "Confirmaă identitatea"
+9. Introduce "AMS" (Amsterdam) - CORECT ✅
+
+REACȚII SISTEM:
+✅ Validare numere mari de călători (handle crowd management)
+✅ Interval dată lung (9 zile) acceptat
+✅ Message: "Ați planificat o călătorie în grup mare!"
+✅ Welcome header: "Bine ai venit! Călătoria ta: Amsterdam, Olanda (01.07-10.07)"
+✅ Sistem permite imediat navigare la Itinerar
+
+INTERACȚIUNE URMĂRITOARE:
+- Alex dă click pe tab "Itinerar"
+- Vede secțiune goală: "Nicio activitate adăugată încă"
+- Dă click "Adaugă Activitate" → form expandabil
+- Dă click "Hartă" → SVG gol (fără markeri, pentru că nu sunt activități)
+
+SUCCESUL SCENARIULUI:
+✅ Aplicația handlează cazuri edge (8 călători)
+✅ Validare robustă pe date lungi
+✅ UX fluid pentru utilizator experimentat
+✅ Mesaje contextuale (menționează grup mare)
+
+DIFERENȚE vs SCENARIU 1.1:
+- ✓ Utilizator mai experimentat → input mai rapid
+- ✓ Număr călători mai mare → sistem trebuie să validate
+- ✓ Alex nu se pierde pe parolă (deja știe destinația)
+- ✓ Imediat navigează la task-uri următoare
+
+JUSTIFICARE DESIGN:
+Scenariul illustrează robustețe pentru grupuri mari și input bulk. 
+Utilizatori experimentați nu au nevoie de indicii detaliate. Sistem 
+trebuie să dea feedback special pentru caz edge-case (8 călători).
+
+================================================================================
+TASK 3: CREAREA UNEI LISTE DE BAGAJ PERSONALIZATE
+================================================================================
+
+SCENARIU 3.1: "Elena - Utilizare listă automată + personalizare"
+─────────────────────────────────────────────────────────────────
+
+CONTEXT:
+Elena, 42 ani, profesoară, calator frecvent. Știe că e ușor de uita ceva 
+în bagaj. Pe telefon (iOS Safari), în ziua înainte de plecare, deschide 
+aplicația să-și organizeze bagajul.
+
+FLUXUL SCENARIO:
+1. Elena deschide home.html pe iPhone, face login
+2. Dă click pe tab "Bagaj"
+3. Vede buton "Generează lista automată"
+4. Apasă buton → Alert: "Lista de bagaj a fost generată automat!"
+5. Vede 6 categorii cu 27 articole:
+   - 📄 Documente (5 articole: pașaport, bilet, etc.)
+   - 👕 Îmbrăcăminte (5 articole)
+   - 🧴 Igienă (6 articole)
+   - 🔌 Electronice (5 articole)
+   - 🎒 Accesorii (3 articole)
+   - 💊 Medicamente (3 articole)
+6. Elena bifează articole pe care le-a împachetat:
+   ✅ Pașaport
+   ✅ Bilet aerian
+   ✅ Cartă de credit
+   ✅ Telefon
+   ✅ Periuță de dinți
+7. Elena vede că "Cremă SPF" e în lista generată
+8. Dă click pe formularul "Adaugă articol"
+9. Introduce:
+   - Articol: "Protector solar SPF 50 (compact)"
+   - Categorie: "Igienă"
+   - Cantitate: 2
+10. Apasă "Adaugă"
+11. Noul articol apare în categoria "Igienă"
+
+REACȚII SISTEM:
+✅ Generare automată cu 27 articole în 6 categorii
+✅ Bifă/Debifă articole → articol se afișează cu opacity 0.6
+✅ Ștergere articole cu buton roșu "Șterge"
+✅ Form pentru articol personalizat cu dropdown categorii
+✅ Validare: articol trebuie completat + categorie
+✅ Icon emoji pentru fiecare categorie (🧴 Igienă, etc.)
+✅ Afișare cantitate per articol
+
+SUCCESUL SCENARIULUI:
+✅ Flow ușor: genereazā automată → personalizare
+✅ UX pe mobil: butoane mari, scrollable pe orizontală
+✅ Feedback clar (bifă = ambalat)
+✅ Ușor de adăugat articole personalizate
+
+ERORI PREVENITE:
+- ❌ Utilizator uită article → lista automată completează
+- ❌ Utilizator pierde track ce e ambalat → bifă vizuală
+- ❌ Articole nestandard → form custom
+
+JUSTIFICARE DESIGN:
+Combinație optimă între automatizare (reduce effort) și control manual 
+(personalizare). Categorizarea ajută organizarea. Bifarea articolelor 
+în timp real oferă sense of progress și satisfacție.
+
+────────────────────────────────────────────────────────────────────────────
+
+SCENARIU 3.2: "Ion - Creare listă customizată de la zero"
+──────────────────────────────────────────────────────────
+
+CONTEXT:
+Ion, 65 ani, pensionar, o persoane mai în vârstă care nu e tech-savvy. 
+Planifică o scurtă vacanță cu soția la plajă (3 zile). Pe tablet, acasă, 
+cu mult timp, preferă să creeze manual lista lui de bagaj.
+
+FLUXUL SCENARIO:
+1. Ion deschide home.html pe iPad, face login
+2. Dă click pe tab "Bagaj"
+3. Vede "Nicio articol de bagaj. Generați o listă automată!"
+4. Ion ignora butonul "Generează lista automată" (preferă manual)
+5. Dă click pe "Adaugă articol" → form expandabil
+6. Completează:
+   - Articol: "Costum de baie"
+   - Categorie: "Îmbrăcăminte"
+   - Cantitate: 2
+7. Apasă "Adaugă"
+8. Completează următoare articol:
+   - Articol: "Cizmă medicală (pentru picior)"
+   - Categorie: "Medicamente"
+   - Cantitate: 1
+9. Apasă "Adaugă"
+10. Continuă cu "Șlapi", "Tricouri", "Pantaloni scurți", etc.
+11. După 10 minute, Ion a adăugat 15 articole personalizate
+12. Bifează articole pe care le-a deja pregătit pe pat
+
+REACȚII SISTEM:
+✅ Form rămâne expandat după fiecare adaugare (flow continuu)
+✅ Categorie se resetează, articol se golește
+✅ Feedback vizual: "Articol adăugat la categoria X"
+✅ Ordonare per categorie (colapsibil)
+✅ Butoane mari și ușor accesibile pe tablet (touch-friendly)
+
+SUCCESUL SCENARIULUI:
+✅ UX accesibil pentru utilizatori mai în vârstă
+✅ Permite control total (no automation pressure)
+✅ Form persistent pentru multiple entries
+✅ Feedback clar la fiecare acțiune
+
+DIFERENȚE vs SCENARIU 3.1:
+- ✓ Elena: generare automată + micro-personalizare
+- ✓ Ion: creare manuală completă de la zero
+- ✓ Elena: telefon (mic, rapid)
+- ✓ Ion: tablet (mai mult timp disponibil)
+
+JUSTIFICARE DESIGN:
+Aplicația trebuie să suporte ambele fluxuri: quick automation (power users) 
+și slow manual creation (accessibility). Designul permite ambele căi. 
+Butoane mari și spacing generos ajută utilizatori mai în vârstă.
+
+================================================================================
+TASK 4: EXPLORAREA ȘI GĂSIREA DE EXPERIENȚE AUTENTICE
+================================================================================
+
+SCENARIU 4.1: "Sofia - Descoperire spontană pe hartă"
+──────────────────────────────────────────────────────
+
+CONTEXT:
+Sofia, 31 ani, architect, calator aventuros. Deja e în Barcelona, și pe 
+telefon deschide aplicația în metro pentru a adăuga experiențe pe care le 
+vede sau le-a descoperit deja. Vrea să categorize ce e "autentică" vs 
+"turistică" pentru mai târziu.
+
+FLUXUL SCENARIO:
+1. Sofia deschide home.html, face login
+2. Dă click pe tab "Experiențe"
+3. Vede grid gol cu buton "Adaugă experiență"
+4. Apasă buton → form expandabil
+5. Completează:
+   - Nume: "Mercat de la Boqueria - food tour local"
+   - Tip: "Autentică (Locală)"
+   - Descriere: "Piață tradițională cu vânzători locali, fructe proaspete, 
+     atmosferă autentic barcelona. Recomand dimineața devreme!"
+   - Locație: "La Rambla, Barcelona"
+   - Rating: 5/5 (slider)
+6. Apasă "Adaugă"
+7. Cardă apare în grid cu:
+   - Header gradient (violet-indigo)
+   - Icon 🌍 "Autentică"
+   - Titlu, locație, descriere
+   - 5 stele ⭐⭐⭐⭐⭐
+8. Sofia adaugă a doua experiență:
+   - Nume: "Sagrada Familia guided tour"
+   - Tip: "Turistică"
+   - Rating: 4/5
+9. Grid acum are 2 carduri side-by-side (pe telefon, stacked)
+
+REACȚII SISTEM:
+✅ Form expandabil cu câmpuri simple
+✅ Slider interactiv pentru rating (feedback vizual 1-5)
+✅ Card grid responsive (1 coloană pe mobile, 2+ pe desktop)
+✅ Carduri cu hover effect (lift up)
+✅ Icoane emoji pentru tip (🌍 autentică, 📸 turistică, 🎭 amestecată)
+✅ Buton șterge pe fiecare card
+
+SUCCESUL SCENARIULUI:
+✅ UX rapid pe mobil în context real (în stradă)
+✅ Validare: forțează completare tous câmpuri
+✅ Vizualizare: grid atractiv, carduri interactive
+✅ Categorization: ușor să filtreze mai târziu (autentică vs turistică)
+
+ERORI PREVENITE:
+- ❌ Utilizator uită locație → form required
+- ❌ Experiență cu descriere ușă → validation
+- ❌ Rating ambiguu → slider vizual
+
+JUSTIFICARE DESIGN:
+Sofia e on-the-go, deci form trebuie rapid. Cardul grid vizual și colorat 
+face colecția de experiențe să fie motivantă (gamification). Tipul 
+experiență e important pentru filtering/analysis mai târziu. Rating vizual 
+(stele) e universal înțeles.
+
+────────────────────────────────────────────────────────────────────────────
+
+SCENARIU 4.2: "Marc - Planificare experiențe înainte de plecare"
+─────────────────────────────────────────────────────────────────
+
+CONTEXT:
+Marc, 28 ani, video creator de YouTube, planifică un vlog pe tema 
+"Autentică vs Turistic". Acasă pe desktop, ore înainte de plecare în Lisabona,
+adaugă experiențe pe care vrea să le filmeze / analizeze pentru clip.
+
+FLUXUL SCENARIO:
+1. Marc deschide home.html pe laptop, face login
+2. Dă click pe tab "Experiențe"
+3. Grid gol, dă click pe "Adaugă experiență"
+4. Completează experiență 1:
+   - Nume: "Livraria Bertrand - cea mai veche librărie din lume"
+   - Tip: "Autentică (Locală)" - e ceva ce turiști nu stiu
+   - Descriere: "Bookshop historic cu 1000+ ani. Frecventat de scriitori locali.
+     Perfect pentru backstory vlog."
+   - Locație: "Rua Garrett 73, Lisabona"
+   - Rating: 5/5
+5. Adaugă experiență 2:
+   - Nume: "Cristo Rei - colosal landmark"
+   - Tip: "Turistică" - e iconic dar masivă și plină de turiști
+   - Descriere: "Monument enorm cu vedere pe Lisabona. Fotografiat de 
+     fiecare turist. Bun pentru contrast în vlog."
+   - Locație: "Santuário Nacional de Cristo Rei"
+   - Rating: 3/5 (meh, prea crowded)
+6. Adaugă experiență 3:
+   - Nume: "Fado dinner in Alfama quarter"
+   - Tip: "Amestecată"
+   - Descriere: "Intimate fado performance în mic restaurant. Turiști, 
+     dar și locals. Autentică atmosferă."
+   - Locație: "Alfama, Lisabona"
+   - Rating: 4/5
+7. Grid acum are 3 carduri în rând (desktop view)
+8. Marc e satisfăcut de selecție pentru vlog
+
+REACȚII SISTEM:
+✅ Form complet cu ajutor pentru descriere (text lung)
+✅ Grid flexibil: 1 col mobile, 3+ col desktop
+✅ Carduri cu preview thumbnail color coding:
+   - Verde: autentică
+   - Albastru: turistică
+   - Violet: amestecată
+✅ Buton șterge dacă schimbă parere
+✅ Salvare automată în localStorage
+
+SUCCESUL SCENARIULUI:
+✅ Planificare în avans cu detalii complete
+✅ Categorization clar pentru contrast vlog
+✅ UX desktop cu spațiu pentru descrieri lungi
+✅ Visual encoding (culori) pentru rapid scanning
+
+DIFERENȚE vs SCENARIU 4.1:
+- ✓ Sofia: în context real (Barcelona, mobil)
+- ✓ Marc: planinificare avansată (acasă, desktop, vlog purpose)
+- ✓ Sofia: rapid add în metro
+- ✓ Marc: detaliu, descrieri lungi
+- ✓ Sofia: 2 experiențe simple
+- ✓ Marc: 3+ experiențe cu intent creativ
+
+JUSTIFICARE DESIGN:
+Design trebuie să suporte ambele use-case: mobile on-the-go și desktop 
+planning. Categorization e crucial pentru Marc's content strategy. 
+Descrieri lungi necesită textarea. Visual encoding (culori) ajuta rapid 
+scanning al colecției. Gamification (rating) motivează completare detalii.
+
+================================================================================
+TASK 8: UTILIZAREA UNEI HĂRȚI INTERACTIVE PENTRU NAVIGARE
+================================================================================
+
+SCENARIU 8.1: "Nina - Optimizare rută zilei pe hartă SVG"
+───────────────────────────────────────────────────────────
+
+CONTEXT:
+Nina, 52 ani, turist experimentat, acum e în París pe ziua 3 din vacanță.
+Dimineață devreme, pe telefon în hotel, deschide aplicația. Are 5 activități
+planificate pentru azi. Vrea să vizualizeze pe hartă pentru a optimiza ruta
+și a evita backtracking.
+
+FLUXUL SCENARIO:
+1. Nina face login și are deja 5 activități în sistem:
+   - 09:00 Louvre museum (Atracție turistică)
+   - 12:00 Lunch at Café de Flore (Masă)
+   - 14:30 Walk along Seine (Experiență autentică)
+   - 16:00 Les Invalides (Atracție)
+   - 19:00 Dinner in Marais (Masă)
+2. Nina dă click pe tab "Itinerar"
+3. Vede lista de 5 activități sortate cronologic
+4. Dă click pe buton "Vizualizează pe Hartă"
+5. SVG map apare cu:
+   - Background culoare albastră ușor
+   - Titlu: "París - Hartă interactivă"
+   - 5 cercuri violet cu numere 1-5
+   - Fiecare cerc are label sub el (locația)
+   - Timeline box sub hartă cu:
+     * 09:00 Louvre
+     * 12:00 Café de Flore
+     * etc.
+     * Durata per activitate
+6. Nina vede că activități 1, 2, 3 sunt aproape (cluster)
+7. Activitate 4 e mai departe
+8. Activitate 5 e înapoi aproape de 4
+9. Nina realizează: ruta actuală ar necesita backtracking
+10. Apasă "Înapoi la itinerar" și reorganizează activități
+
+REACȚII SISTEM:
+✅ SVG map cu 5 markeri numerotați
+✅ Timeline parallel cu timeline-item pentru fiecare activitate
+✅ Marker positions simulate (random pentru demo, nu real geolocation)
+✅ Hover pe marker → highlight pe timeline
+✅ Timeline item show: ora, nume, locație, durată
+✅ Buton "Înapoi la itinerar" pentru edit
+
+SUCCESUL SCENARIULUI:
+✅ Vizualizare spațială ajuta planificarea
+✅ Timeline cronologic complement hartă
+✅ Ușor să identifice clustering și backtracking
+✅ Permet rapid pivoting și replan
+
+ERORI PREVENITE:
+- ❌ Rută inefficientă → hartă arată problema
+- ❌ Duplicate locations → vizualizare arată concentrare
+- ❌ Orar confuz → timeline clarify
+
+JUSTIFICARE DESIGN:
+Combinația hartă + timeline e mai informativă decât una singură. SVG 
+renderare local (nu API maps) reduce latency și complexitate. Numerele 
+pe markeri clarify ordinea. Timeline parallel suportă alternare 
+atenție hartă ↔ timeline.
+
+────────────────────────────────────────────────────────────────────────────
+
+SCENARIU 8.2: "Lucas - Hartă pentru comunicare grup"
+──────────────────────────────────────────────────────
+
+CONTEXT:
+Lucas, 34 ani, coordinator al unui grup de 8 prieteni în Amsterdam.
+Pe laptop la Airbnb, în seara zilei 2, vrea să arate tuturor pe hartă
+ruta planificată pentru ziua 3. Grupul e în camera comună și toți 
+doresc să vadă unde vor merge.
+
+FLUXUL SCENARIO:
+1. Lucas deschide home.html pe laptop conectat la TV (HDMI)
+2. Dă click pe tab "Itinerar"
+3. Vede 8 activități planificate pentru ziua 3:
+   - 10:00 Desayuno Amsterdam style
+   - 11:30 Van Gogh Museum
+   - 13:00 Lunch at canal
+   - 14:30 Anne Frank House
+   - 16:00 Bike tour through countryside
+   - 18:00 Return to city
+   - 19:30 Dinner in De Wallen
+   - 21:00 Canal cruise at night
+4. Dă click pe "Vizualizează pe Hartă"
+5. SVG map pe TV arată 8 markeri numerotați
+6. Grup poate vedea ruta completă pe ecran mare
+7. Timeline box arată toate activități cu ore
+8. Lucas poată explain ruta: "Plecam din Airbnb (care e lângă 10), 
+   merge la museum (11), apoi lunch (13), etc."
+9. Membrul grup: "De ce nu mergem direct la Anne Frank din Louvre?"
+   Lucas: "Sunt în diferite cartiere, e mai eficient Order-ula aceasta"
+10. Hartă ajuta comunicare și planning alignment
+
+REACȚII SISTEM:
+✅ Map scalability: funcționează pe TV (mare) și pe mobil (mic)
+✅ Timeline persistent, ușor de citit din depărtare
+✅ Culori bright și contrast înalt pentru vizibilitate TV
+✅ Text responsive: creșt pe big screens
+✅ Numeric markers (1-8) clear și ușor de urmărit
+✅ Color coding: violet pentru markers
+
+SUCCESUL SCENARIULUI:
+✅ Hartă facilitează comunicare grupală
+✅ Vizualizare spațială ajuta alignment
+✅ UX scalează de la mobil la TV
+✅ Timeline completează hartă
+✅ Group coordination devine ușoară
+
+DIFERENȚE vs SCENARIU 8.1:
+- ✓ Nina: individual on-the-go planning (telefon, hotel)
+- ✓ Lucas: group alignment (laptop, Airbnb, TV)
+- ✓ Nina: optimize rută (identificare problema)
+- ✓ Lucas: communicate rută (explain și align)
+- ✓ Nina: 5 activități
+- ✓ Lucas: 8 activități (grup mare)
+
+JUSTIFICARE DESIGN:
+Hartă SVG trebuie să scale bine la dimensiuni multiple. Typography trebuie 
+responsive. Timeline e asertul key care compensate pentru faptul că nu avem 
+real map (Google Maps). Numerotarea clară și ordonare cronologică sunt esențiale 
+pentru comunicare grupală. Culori consistente reduce cognitive load.
+
+================================================================================
+REZUMAT SCENARII
+================================================================================
+
+TASK 1 (Planificare):
+  - SCENARIU 1.1: Maria (nova, desktop, single traveler)
+  - SCENARIU 1.2: Alex (experienced, group, laptop)
+
+TASK 3 (Bagaj):
+  - SCENARIU 3.1: Elena (mobile, auto-gen + customize)
+  - SCENARIU 3.2: Ion (tablet, manual de la zero)
+
+TASK 4 (Experiențe):
+  - SCENARIU 4.1: Sofia (mobile, on-the-go, real situation)
+  - SCENARIU 4.2: Marc (desktop, planning ahead, creative purpose)
+
+TASK 8 (Hartă):
+  - SCENARIU 8.1: Nina (mobile, optimize rută, individual)
+  - SCENARIU 8.2: Lucas (laptop→TV, communicate, group)
+
+DESIGN PRINCIPLES DEMONSTRATED:
+✅ Accessibility: suport multiple device sizes (mobile, tablet, laptop, TV)
+✅ Flexibility: support multiple workflows (auto vs manual, on-the-go vs planning)
+✅ Clarity: validation messages, visual feedback, timeline clarity
+✅ Context-awareness: diferit scenarios pentru diferite contexte
+✅ Scalability: de la single user la group, de la quick entry la detailed planning
+
+================================================================================
+Data: ianuarie 2026
+Autor: Student PIU
+Status: ETAPA 5 - COMPLET
+================================================================================
